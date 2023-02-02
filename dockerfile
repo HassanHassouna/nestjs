@@ -1,0 +1,14 @@
+FROM postgres:9.6
+
+WORKDIR /app
+
+COPY . /app
+
+ENV POSTGRES_USER=hassanhassouna
+ENV POSTGRES_PASSWORD=hh123789
+ENV POSTGRES_DB=testing
+
+
+EXPOSE 5432
+
+CMD ["postgres"]
