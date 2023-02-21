@@ -1,14 +1,13 @@
-FROM postgres:9.6
+FROM node:latest
 
-WORKDIR /app
+WORKDIR /user/src/users
 
-COPY . /app
+COPY package*.json ./
 
-ENV POSTGRES_USER=hassanhassouna
-ENV POSTGRES_PASSWORD=hh123789
-ENV POSTGRES_DB=typeorm
+RUN npm install
 
+COPY . .
 
-EXPOSE 5432
+RUN npm run build
 
-CMD ["postgres"]
+CMD [ "node" ,"dist/src/main.js"]
