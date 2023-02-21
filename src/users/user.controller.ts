@@ -3,36 +3,45 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
-@Controller('user')
+@ApiTags('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
+  @Post('/register')
+  @UsePipes(ValidationPipe)
+  @ApiCreatedResponse({
+    description: 'The record has been successfully created.',
+  })
+  @ApiBadRequestResponse({
+    description: 'The record has not been created.',
+  })
   create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    this.userService.create(createUserDto);
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async getUsers() {
+    const users = await this.userService.findAll();
+    return users;
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
   }
 
   @Delete(':id')

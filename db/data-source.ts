@@ -6,9 +6,9 @@ export const dataSourceOptions: DataSourceOptions = {
   port: 5432,
   username: 'hassanhassouna',
   password: 'hh123789',
-  database: 'testing',
-  entities: ['dist/**/*.entity.js'],
-  migrations: ['dist/migrations/*.js'],
+  database: 'typeorm',
+  entities: ['dist/**/*.entity{.ts,.js}'],
+  migrations: ['dist/db/migrations/*{.ts,.js}'],
 };
 
 export const dataSource = new DataSource(dataSourceOptions);
