@@ -1,13 +1,16 @@
-FROM node:latest
+FROM node:latest AS dev
 
-WORKDIR /user/src/users
-
-COPY package*.json ./
+WORKDIR /app
+COPY [ "package*.json", "./" ]
 
 RUN npm install
-
 COPY . .
+CMD [ "npm", "run","start:dev" ]
 
-RUN npm run build
 
-CMD [ "node" ,"dist/src/main.js"]
+# FROM base AS prod
+# RUN npm install --production
+# COPY . .
+# RUN npm install -g @nestjs/cli
+# RUN npm run build
+# CMD [ "npm", "run","start:prod" ]

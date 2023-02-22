@@ -2,11 +2,11 @@ import { DataSourceOptions, DataSource } from 'typeorm';
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
-  host: 'localhost',
+  host: 'db',
   port: 5432,
-  username: 'hassanhassouna',
-  password: 'hh123789',
-  database: 'typeorm',
+  username: 'postgres',
+  password: 'postgres',
+  database: 'postgres',
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/db/migrations/*{.ts,.js}'],
 };
